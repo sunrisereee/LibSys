@@ -9,6 +9,6 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(Book, BookAdmin)
 class ReaderAdmin(admin.ModelAdmin):
     model = Reader
-    list_display = ['id', 'readerFirstName', 'readerSecondName', 'bookBirthday', 'hashPassword']
+    list_display = ['id', 'readerFirstName', 'readerSecondName', 'readerBirthday', 'hashPassword']
 
 admin.site.register(Reader, ReaderAdmin)
