@@ -1,28 +1,20 @@
 {% extends "index.html" %}
 {% block content %}
-    <div class="container-books">
+    <main>
         <h2>Список книг</h2>
         {% if books %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Автор</th>
-                        <th>Название</th>
-                        <th>Год издания</th>
-                        <th>Количество</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for book in books %}
-                    <tr>
-                        <td>{{ book.author }}</td>
-                        <td>{{ book.title }}</td>
-                        <td>{{ book.year }}</td>
-                        <td>{{ book.quantity }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <ul>
+            {% for book in books %}
+            <li>
+                Автор: {{ book.author }} |
+                Название: {{ book.title }} |
+                Год издания: {{ book.year }} |
+                Количество: {{ book.quantity }} |
+                <a href="bookEdit/{{book.id}}">Изменить</a>
+                <a href="bookDelete/{{book.id}}">Удалить</a>
+            </li>
+            {% endfor %}
+        </ul>
         {% else %}
             <p>Нет книг для отображения.</p>
         {% endif %}
@@ -30,19 +22,11 @@
         <h3>Добавить новую книгу</h3>
         <form action="{% url 'add_book' %}" method="POST">
             {% csrf_token %}
-            <div>
-                <input type="text" id="author" name="author" placeholder="Автор" required>
-            </div>
-            <div>
-                <input type="text" id="title" name="title" placeholder="Название" required>
-            </div>
-            <div>
-                <input type="number" id="year" name="year" placeholder="Год издания" required>
-            </div>
-            <div>
-                <input type="number" id="quantity" name="quantity" placeholder="Количество" required>
-            </div>
+            <input type="text" id="author" name="author" placeholder="Автор" required>
+            <input type="text" id="title" name="title" placeholder="Название" required>
+            <input type="number" id="year" name="year" placeholder="Год издания" required>
+            <input type="number" id="quantity" name="quantity" placeholder="Количество" required>
             <button type="submit">Добавить книгу</button>
         </form>
-    </div>
+    </main>
 {% endblock content %}

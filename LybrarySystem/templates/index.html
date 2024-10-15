@@ -5,10 +5,9 @@
 <body>
     <header>
         <nav class="nav-container">
-            <a href="{% url 'books' %}">Список книг</a>
             <h1>Библиотечная система</h1>
-            <a href="{% url 'readers' %}">Я Читатель</a>
-            <a href="{% url 'library' %}">Я Библиотекарь</a>
+            <a href="{% url 'books' %}">Книги</a>
+            <a href="{% url 'library' %}">Библиотека</a>
             {% if user.is_authenticated %}
             <form action="{% url 'logout' %}" method="post">
                {% csrf_token %}
