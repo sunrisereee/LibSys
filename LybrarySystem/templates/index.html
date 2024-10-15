@@ -9,13 +9,13 @@
             <a href="{% url 'books' %}">Книги</a>
             <a href="{% url 'library' %}">Библиотека</a>
             {% if user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="post">
-               {% csrf_token %}
-                <button type="submit" class="btn btn-success">Выйти</button>
-            </form>
-            <!--{% else %}
-            <a href="{% url 'login' %}">Вход</a>
-            {% endif %} --->
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Вход</a>
+            {% endif %}
         </nav>
     </header>
     {% block content %}Что-то пошло не так{% endblock content %}
