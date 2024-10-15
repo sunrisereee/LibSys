@@ -5,18 +5,18 @@
 <body>
     <header>
         <nav class="nav-container">
-            <a href="{% url 'books' %}">Книги</a>
+            <a href="{% url 'books' %}">Список книг</a>
             <h1>Библиотечная система</h1>
-            <a href="{% url 'readers' %}">Читатели</a>
-            <a href="{% url 'library' %}">Библиотека</a>
+            <a href="{% url 'readers' %}">Я Читатель</a>
+            <a href="{% url 'library' %}">Я Библиотекарь</a>
             {% if user.is_authenticated %}
             <form action="{% url 'logout' %}" method="post">
                {% csrf_token %}
                 <button type="submit" class="btn btn-success">Выйти</button>
             </form>
-            {% else %}
+            <!--{% else %}
             <a href="{% url 'login' %}">Вход</a>
-            {% endif %}
+            {% endif %} --->
         </nav>
     </header>
     {% block content %}Что-то пошло не так{% endblock content %}
