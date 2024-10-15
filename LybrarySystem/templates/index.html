@@ -13,9 +13,9 @@
                {% csrf_token %}
                 <button type="submit" class="btn btn-success">Выйти</button>
             </form>
-            {% else %}
+            <!--{% else %}
             <a href="{% url 'login' %}">Вход</a>
-            {% endif %}
+            {% endif %} --->
         </nav>
     </header>
     {% block content %}Что-то пошло не так{% endblock content %}

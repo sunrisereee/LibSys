@@ -8,6 +8,7 @@ urlpatterns = [
    path('books', views.books_list, name="books"),
    path('readers', views.readers, name="readers"),
    path('library', views.library, name="library"),
+   #path('login', views.login, name="login"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
