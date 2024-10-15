@@ -1,18 +1,37 @@
 from django.shortcuts import render, redirect
-# from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
+from .models import Book, Reader
+
 def index(request):
     return render(request, 'index.html')
 
 def books_list(request):
     return render(request, 'books.html')
+  
 @login_required
 def readers(request):
     return render(request, 'readers.html')
 @login_required
 def library(request):
     return render(request, 'library.html')
+  
+def bookList(request):
+    books = Book.objects.all()
+    context = {
+        'render_task': books,
+        'page_title':'Список книг',
+    }
+    return render(request, 'books.html', context)
+
+def readersList(request):
+    readers = Reader.objects.all()
+    context = {
+        'render_task': readers,
+        'page_title':'Список читателей',
+    }
+    return render(request, 'library.html', context)
+
 @login_required
 def addReader(request):
     rSecondName = request.POST.get("last_name")
@@ -60,3 +79,4 @@ def editBook(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
 def deleteBook(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     Book.objects.get(id=request.POST.get("id")).delete()
     return HttpResponseRedirect("/LybrarySystem/books")
+
