@@ -17,7 +17,7 @@ class Book(models.Model):
 class Reader(models.Model):
     readerFirstName = models.TextField()
     readerSecondName = models.TextField() # models.TextField()
-    bookBirthday = models.DateField()
+    readerBirthday = models.DateField()
     hashPassword = models.TextField()
     #bookInstances = models.IntegerField()
     #photolikecount = models.IntegerField()
