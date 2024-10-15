@@ -8,9 +8,9 @@
             <ul>
                 {% for reader in readers %}
                     <li>
-                        {{ reader.last_name }} |
-                        {{ reader.first_name }} |
-                        {{ reader.birth_date }} |
+                        {{ reader.readerSecondName }} |
+                        {{ reader.readerFirstName }} |
+                        {{ reader.bookBirthday }} |
                         <a href="readerEdit/{{reader.id}}">Изменить</a>
                         <a href="readerDelete/{{reader.id}}">Удалить</a>
                     </li>

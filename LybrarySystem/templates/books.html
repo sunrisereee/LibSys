@@ -6,10 +6,11 @@
         <ul>
             {% for book in books %}
             <li>
-                Автор: {{ book.author }} |
-                Название: {{ book.title }} |
-                Год издания: {{ book.year }} |
-                Количество: {{ book.quantity }} |
+                Автор: {{ book.bookAuthor }} |
+                Название: {{ book.bookName }} |
+                Год издания: {{ book.bookDate }} |
+                Количество страниц: {{ book.quantity }} |
+                Количество экземляров: {{ book.bookInstances }} |
                 <a href="bookEdit/{{book.id}}">Изменить</a>
                 <a href="bookDelete/{{book.id}}">Удалить</a>
             </li>
