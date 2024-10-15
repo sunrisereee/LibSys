@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% block content %}
+    <div class="container-library">
+        <h2>Библиотека</h2>
+        
+        <h3>Выдача книги читателю</h3>
+        <form action="{% url 'issue_book' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <input type="text" id="reader_id" name="reader_id" placeholder="ID читателя" required>
+            </div>
+            <div>
+                <input type="text" id="book_id" name="book_id" placeholder="ID книги" required>
+            </div>
+            <button type="submit">Выдать книгу</button>
+        </form>
+
+        <h3>Возврат книги</h3>
+        <form action="{% url 'return_book' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <input type="text" id="return_reader_id" name="reader_id" placeholder="ID читателя" required>
+            </div>
+            <div>
+                <input type="text" id="return_book_id" name="book_id" placeholder="ID книги" required>
+            </div>
+            <button type="submit">Вернуть книгу</button>
+        </form>
+    </div>
+{% endblock content %}
