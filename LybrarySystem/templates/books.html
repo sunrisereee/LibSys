@@ -2,17 +2,17 @@
 {% block content %}
     <main>
         <h2>Список книг</h2>
-        {% if books %}
+        {% if render_task %}
         <ul>
-            {% for book in books %}
+            {% for books in render_task %}
             <li>
-                Автор: {{ book.bookAuthor }} |
-                Название: {{ book.bookName }} |
-                Год издания: {{ book.bookDate }} |
-                Количество страниц: {{ book.quantity }} |
-                Количество экземляров: {{ book.bookInstances }} |
-                <a href="bookEdit/{{book.id}}">Изменить</a>
-                <a href="bookDelete/{{book.id}}">Удалить</a>
+                Автор: {{ books.bookAuthor }} |
+                Название: {{ books.bookName }} |
+                Год издания: {{ books.bookDate }} |
+                Количество страниц: {{ books.quantity }} |
+                Количество экземляров: {{ books.bookInstances }} |
+                <a href="bookEdit/{{books.id}}">Изменить</a>
+                <a href="bookDelete/{{books.id}}">Удалить</a>
             </li>
             {% endfor %}
         </ul>
@@ -21,7 +21,7 @@
         {% endif %}
 
         <h3>Добавить новую книгу</h3>
-        <form action="{% url 'add_book' %}" method="POST">
+        <form action="{% url 'addBook' %}" method="POST">
             {% csrf_token %}
             <input type="text" id="author" name="author" placeholder="Автор" required>
             <input type="text" id="title" name="title" placeholder="Название" required>
