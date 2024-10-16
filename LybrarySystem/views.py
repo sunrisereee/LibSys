@@ -38,7 +38,8 @@ def addReader(request):
     rFirstName = request.POST.get("first_name")
     rBirthday = request.POST.get("birth_date")
     # rBirthday = request.POST.get("birth_date")
-    Reader.objects.create(readerSecondName=rSecondName,readerFirstName=rFirstName,readerBirthday=rBirthday)
+    newReader = Reader(readerSecondName=rSecondName,readerFirstName=rFirstName,readerBirthday=rBirthday)
+    newReader.save()
     return HttpResponseRedirect("/LybrarySystem/library")
 
 @login_required
@@ -61,9 +62,10 @@ def addBook(request):
     bDate = request.POST.get("year")
     bPageCount = request.POST.get("pages")
     bInstances = request.POST.get("instances")
-    Book.objects.create(bookAuthor = bAuthor,bookName = bName,bookDate = bDate,
+    newBook = Book(bookAuthor = bAuthor,bookName = bName,bookDate = bDate,
                         bookPageCount = bPageCount,bookInstances =bInstances)
-    return HttpResponseRedirect("/LybrarySystem/books")
+    newBook.save()
+    return HttpResponseRedirect("/library/")
 
 @login_required
 def editBook(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
