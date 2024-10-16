@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block content %}
+<main>
+        <h2>Список книг</h2>
+        {% if render_task %}
+            <ul>
+                {% for book in render_task %}
+                    <li>
+                        {{ book.bookID }} |
+<!--                        {{ readers.readerFirstName }} |-->
+<!--                        {{ readers.readerBirthday }} |-->
+                        <a href="returnBook/{{book.bookID}}&{{book.readerID}}">Принять</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет книг для отображения.</p>
+        {% endif %}
+
+        <h3>Возврат книги</h3>
+        <form action="{% url 'returnBook' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" id="return_reader_id" name="reader_id" placeholder="ID читателя" required>
+            <input type="text" id="return_book_id" name="book_id" placeholder="ID книги" required>
+            <button type="submit">Вернуть книгу</button>
+        </form>
+    </main>
+
+{% endblock content %}
