@@ -2,11 +2,11 @@
 {% block content %}
     <main>
         <h2>Редактировать читателя</h2>
-        <form action="{% url 'edit-reader' reader.id %}" method="post">
+        <form action="{% url 'editReaderf' reader_id %}" method="post">
             {% csrf_token %}
             <input type="text" id="last_name" name="last_name" value="{{ reader.readerSecondName }}" required>
             <input type="text" id="first_name" name="first_name" value="{{ reader.readerFirstName }}" required>
-            <input type="date" id="birth_date" name="birth_date" value="{{ reader.readerBirthday|date:'Y-m-d' }}" required>
+            <input type="date" id="birth_date" name="birth_date" value="{{ reader.readerBirthday }}" required>
 
             <button type="submit">Сохранить</button>
         </form>

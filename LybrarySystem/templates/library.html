@@ -4,15 +4,15 @@
         <h2>Библиотека</h2>
 
         <h2>Список читателей</h2>
-        {% if readers %}
+        {% if render_task %}
             <ul>
-                {% for reader in readers %}
+                {% for readers in render_task %}
                     <li>
-                        {{ reader.readerSecondName }} |
-                        {{ reader.readerFirstName }} |
-                        {{ reader.readerBirthday }} |
-                        <a href="readerEdit/{{reader.id}}">Изменить</a>
-                        <a href="readerDelete/{{reader.id}}">Удалить</a>
+                        {{ readers.readerSecondName }} |
+                        {{ readers.readerFirstName }} |
+                        {{ readers.readerBirthday }} |
+                        <a href="editReader/{{readers.id}}">Изменить</a>
+                        <a href="deleteReader/{{readers.id}}">Удалить</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -21,7 +21,7 @@
         {% endif %}
 
         <h3>Добавить нового читателя</h3>
-        <form action="{% url 'add_reader' %}" method="POST">
+        <form action="{% url 'addReader' %}" method="POST">
             {% csrf_token %}
             <input type="text" id="last_name" name="last_name" placeholder="Фамилия" required>
             <input type="text" id="first_name" name="first_name" placeholder="Имя" required>
@@ -31,7 +31,7 @@
 
 
         <h3>Выдача книги читателю</h3>
-        <form action="{% url 'issue_book' %}" method="POST">
+        <form action="{% url 'issueBook' %}" method="POST">
             {% csrf_token %}
             <input type="text" id="reader_id" name="reader_id" placeholder="ID читателя" required>
             <input type="text" id="book_id" name="book_id" placeholder="ID книги" required>
@@ -39,7 +39,7 @@
         </form>
 
         <h3>Возврат книги</h3>
-        <form action="{% url 'return_book' %}" method="POST">
+        <form action="{% url 'returnBook' %}" method="POST">
             {% csrf_token %}
             <input type="text" id="return_reader_id" name="reader_id" placeholder="ID читателя" required>
             <input type="text" id="return_book_id" name="book_id" placeholder="ID книги" required>

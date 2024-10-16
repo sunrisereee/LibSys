@@ -2,13 +2,13 @@
 {% block content %}
     <main>
         <h2>Редактировать книгу</h2>
-        <form action="{% url 'edit-book' book.id %}" method="post">
+        <form action="{% url 'editBookf' book_id %}" method="post">
             {% csrf_token %}
             <input type="text" id="author" name="author" value="{{ book.bookAuthor }}" required>
             <input type="text" id="title" name="title" value="{{ book.bookName }}" required>
             <input type="date" id="year" name="year" value="{{ book.bookDate }}" required>
             <input type="number" id="pages" name="pages" value="{{ book.bookPageCount }}" required>
-            <input type="number" id="quantity" name="quantity" value="{{ book.bookInstances }}" required>
+            <input type="number" id="instances" name="instances" value="{{ book.bookInstances }}" required>
 
             <button type="submit">Сохранить</button>
         </form>
