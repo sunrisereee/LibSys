@@ -59,9 +59,9 @@ def editReaderf(request, id):
     reader.save()
     return HttpResponseRedirect("/library/library")
 @login_required
-def deleteReader(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
-    Reader.objects.get(id=request.POST.get("id")).delete()
-    return HttpResponseRedirect("/LybrarySystem/library")
+def deleteReader(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
+    Reader.objects.get(id=id).delete()
+    return HttpResponseRedirect("/library/library")
 
 @login_required
 def addBook(request):
@@ -96,8 +96,8 @@ def editBookf(request, id):
     book.save()
     return HttpResponseRedirect("/library/books")
 @login_required
-def deleteBook(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
-    Book.objects.get(id=request.POST.get("id")).delete()
+def deleteBook(request, id):
+    Book.objects.get(id=id).delete()
     return HttpResponseRedirect("/library/books")
 
 def returnBook(request):
