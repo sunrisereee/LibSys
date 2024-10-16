@@ -1,9 +1,17 @@
 import datetime
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.contrib.auth.decorators import login_required
 from .models import Book, Reader, BookANDReader
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseForbidden
+from django.contrib.auth.decorators import login_required, user_passes_test, wraps
+
+
+
+def is_library_member(user):
+    return user.groups.filter(name='Library').exists()
+
+def is_reader_member(user):
+    return user.groups.filter(name='Reader').exists()
 
 def index(request):
     return render(request, 'index.html')
@@ -15,9 +23,13 @@ def books_list(request):
 def readers(request):
     return render(request, 'readers.html')
 @login_required
+@user_passes_test(is_library_member)
 def library(request):
     return render(request, 'library.html')
-  
+
+
+
+@login_required
 def bookList(request):
     books = Book.objects.all()
     context = {
@@ -26,6 +38,7 @@ def bookList(request):
     }
     return render(request, 'books.html', context)
 
+@user_passes_test(is_library_member)
 def readersList(request):
     readers = Reader.objects.all()
     context = {
@@ -35,6 +48,7 @@ def readersList(request):
     return render(request, 'library.html', context)
 
 @login_required
+@user_passes_test(is_library_member)
 def addReader(request):
     rSecondName = request.POST.get("last_name")
     rFirstName = request.POST.get("first_name")
@@ -45,6 +59,7 @@ def addReader(request):
     return HttpResponseRedirect("/library/library")
 
 @login_required
+@user_passes_test(is_library_member)
 def editReader(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     # reader = Reader.objects.get(id=request.POST.get("id"))
     # reader.readerSecondName = request.POST.get("last_name")
@@ -53,6 +68,7 @@ def editReader(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     # reader.save()
     return render(request, 'readerEdit.html', {'reader_id': id})
 
+@user_passes_test(is_library_member)
 def editReaderf(request, id):
     reader = Reader.objects.get(id=id)
     reader.readerSecondName = request.POST.get("last_name")
@@ -61,11 +77,13 @@ def editReaderf(request, id):
     reader.save()
     return HttpResponseRedirect("/library/library")
 @login_required
+@user_passes_test(is_library_member)
 def deleteReader(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     Reader.objects.get(id=id).delete()
     return HttpResponseRedirect("/library/library")
 
 @login_required
+@user_passes_test(is_library_member)
 def addBook(request):
     bAuthor = request.POST.get("author")
     bName = request.POST.get("title")
@@ -78,6 +96,7 @@ def addBook(request):
     return HttpResponseRedirect("/library/books")
 
 @login_required
+@user_passes_test(is_library_member)
 def editBook(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     # book = Book.objects.get(id=request.POST.get("id"))
     # book.bookAuthor = request.POST.get("author")
@@ -87,7 +106,7 @@ def editBook(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     # book.bookInstances = request.POST.get("instances")
     # book.save()
     return render(request, 'booksEdit.html', {'book_id': id})
-
+@user_passes_test(is_library_member)
 def editBookf(request, id):
     book = Book.objects.get(id=id)
     book.bookAuthor = request.POST.get("author")
@@ -98,17 +117,24 @@ def editBookf(request, id):
     book.save()
     return HttpResponseRedirect("/library/books")
 @login_required
+@user_passes_test(is_library_member)
 def deleteBook(request, id):
     Book.objects.get(id=id).delete()
     return HttpResponseRedirect("/library/books")
-@login_required
+  
+@user_passes_test(is_library_member)
 def returnBook(request, bid, rid):
     #book = BookANDReader.objects.get(readerID=rid,bookID=bid)
     #book.dateIreceipt = datetime.date
     #book.save()
     BookANDReader.objects.get(readerID=rid,bookID=bid).delete()
     return HttpResponseRedirect("/library/")
+
+
+
+
 @login_required
+@user_passes_test(is_library_member)
 def issueBook(request):
     return HttpResponseRedirect("/library/")
 @login_required
