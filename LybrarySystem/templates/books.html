@@ -11,8 +11,8 @@
                 Год издания: {{ books.bookDate }} |
                 Количество страниц: {{ books.quantity }} |
                 Количество экземляров: {{ books.bookInstances }} |
-                <a href="bookEdit/{{books.id}}">Изменить</a>
-                <a href="bookDelete/{{books.id}}">Удалить</a>
+                <a href="editBook/{{books.id}}">Изменить</a>
+                <a href="deleteBook/{{books.id}}">Удалить</a>
             </li>
             {% endfor %}
         </ul>
@@ -25,7 +25,7 @@
             {% csrf_token %}
             <input type="text" id="author" name="author" placeholder="Автор" required>
             <input type="text" id="title" name="title" placeholder="Название" required>
-            <input type="number" id="year" name="year" placeholder="Год издания" required>
+            <input type="date" id="year" name="year" placeholder="Год издания" required>
             <input type="number" id="pages" name="pages" placeholder="Количество страниц" required>
             <input type="number" id="instances" name="instances" placeholder="Количество" required>
             <button type="submit">Добавить книгу</button>

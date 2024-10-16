@@ -40,16 +40,24 @@ def addReader(request):
     # rBirthday = request.POST.get("birth_date")
     newReader = Reader(readerSecondName=rSecondName,readerFirstName=rFirstName,readerBirthday=rBirthday)
     newReader.save()
-    return HttpResponseRedirect("/LybrarySystem/library")
+    return HttpResponseRedirect("/library/library")
 
 @login_required
-def editReader(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
-    reader = Reader.objects.get(id=request.POST.get("id"))
+def editReader(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
+    # reader = Reader.objects.get(id=request.POST.get("id"))
+    # reader.readerSecondName = request.POST.get("last_name")
+    # reader.readerFirstName = request.POST.get("first_name")
+    # reader.readerBirthday = request.POST.get("birth_date")
+    # reader.save()
+    return render(request, 'readerEdit.html', {'reader_id': id})
+
+def editReaderf(request, id):
+    reader = Reader.objects.get(id=id)
     reader.readerSecondName = request.POST.get("last_name")
     reader.readerFirstName = request.POST.get("first_name")
     reader.readerBirthday = request.POST.get("birth_date")
     reader.save()
-    return HttpResponseRedirect("/LybrarySystem/library")
+    return HttpResponseRedirect("/library/library")
 @login_required
 def deleteReader(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     Reader.objects.get(id=request.POST.get("id")).delete()
@@ -65,20 +73,35 @@ def addBook(request):
     newBook = Book(bookAuthor = bAuthor,bookName = bName,bookDate = bDate,
                         bookPageCount = bPageCount,bookInstances =bInstances)
     newBook.save()
-    return HttpResponseRedirect("/library/")
+    return HttpResponseRedirect("/library/books")
 
 @login_required
-def editBook(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
-    book = Book.objects.get(id=request.POST.get("id"))
+def editBook(request, id): # МОГУТ БЫТЬ ПРОБЛЕМЫ
+    # book = Book.objects.get(id=request.POST.get("id"))
+    # book.bookAuthor = request.POST.get("author")
+    # book.bookName = request.POST.get("title")
+    # book.bookDate = request.POST.get("year")
+    # book.bookPageCount = request.POST.get("pages")
+    # book.bookInstances = request.POST.get("instances")
+    # book.save()
+    return render(request, 'booksEdit.html', {'book_id': id})
+
+def editBookf(request, id):
+    book = Book.objects.get(id=id)
     book.bookAuthor = request.POST.get("author")
     book.bookName = request.POST.get("title")
     book.bookDate = request.POST.get("year")
     book.bookPageCount = request.POST.get("pages")
     book.bookInstances = request.POST.get("instances")
     book.save()
-    return HttpResponseRedirect("/LybrarySystem/books")
+    return HttpResponseRedirect("/library/books")
 @login_required
 def deleteBook(request): # МОГУТ БЫТЬ ПРОБЛЕМЫ
     Book.objects.get(id=request.POST.get("id")).delete()
-    return HttpResponseRedirect("/LybrarySystem/books")
+    return HttpResponseRedirect("/library/books")
 
+def returnBook(request):
+    return HttpResponseRedirect("/library/")
+
+def issueBook(request):
+    return HttpResponseRedirect("/library/")
