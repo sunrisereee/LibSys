@@ -1,7 +1,10 @@
+import datetime
+
 from django.shortcuts import render, redirect
+from .models import Book, Reader, BookANDReader
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required, user_passes_test, wraps
-from .models import Book, Reader
+
 
 
 def is_library_member(user):
@@ -118,11 +121,33 @@ def editBookf(request, id):
 def deleteBook(request, id):
     Book.objects.get(id=id).delete()
     return HttpResponseRedirect("/library/books")
-
+  
 @user_passes_test(is_library_member)
-def returnBook(request):
+def returnBook(request, bid, rid):
+    #book = BookANDReader.objects.get(readerID=rid,bookID=bid)
+    #book.dateIreceipt = datetime.date
+    #book.save()
+    BookANDReader.objects.get(readerID=rid,bookID=bid).delete()
     return HttpResponseRedirect("/library/")
 
+
+
+
+@login_required
 @user_passes_test(is_library_member)
 def issueBook(request):
     return HttpResponseRedirect("/library/")
+@login_required
+def aboutReader(request, id):
+    #reader = BookANDReader.objects.get(readerID=id)
+    brlist = BookANDReader.objects.all().filter(readerID=id)
+    reader = Reader.objects.get(readerID=id)
+    books = Book.objects.get(id=brlist.bookID)
+    context = {
+        'render_task': brlist,
+        #'render_task': (brlist.bookID,,books.bookName, brlist.dateIssue),
+        'page_title': reader.readerSecondName+" "+reader.readerFirstName,
+    }
+    return render(request, 'readersbook.html', context)
+    #reader.save()
+    #return render(request, 'readerEdit.html', {'reader_id': id})

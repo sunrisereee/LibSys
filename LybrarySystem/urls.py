@@ -18,7 +18,9 @@ urlpatterns = [
    path('editReaderf/<int:id>', views.editReaderf, name="editReaderf"),
    path('deleteReader/<int:id>', views.deleteReader, name="deleteReader"),
    path('issueBook', views.issueBook, name="issueBook"),
-   path('returnBook', views.returnBook, name="returnBook"),
+   path('returnBook/<int:bid>&<int:rid>', views.returnBook, name="returnBook"),
+   path('aboutReader/<int:id>', views.aboutReader, name="aboutReader"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
